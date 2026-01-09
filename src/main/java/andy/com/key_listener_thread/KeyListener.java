@@ -11,6 +11,11 @@ public class KeyListener implements Runnable {
     // private ArrayList<Keys> keys;
     private ArrayList<Character> rawKeys;
 
+    public KeyListener() {
+        // this.keys = new ArrayList<Keys>();
+        this.rawKeys = new ArrayList<Character>();
+    }
+
     @Override
     public void run() {
         try {
