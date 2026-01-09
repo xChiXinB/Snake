@@ -15,6 +15,8 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+# VSCode settings
+.vscode/
 
 # Compiled class file
 *.class
