@@ -1,10 +1,10 @@
 package andy.com.display;
 
-public class DisplayManager {
+public class DisplayMaster {
     private int width;
     private int height;
 
-    public DisplayManager(int width, int height) {
+    public DisplayMaster(int width, int height) {
         this.width = width;
         this.height = height;
     }
