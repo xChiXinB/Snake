@@ -30,10 +30,10 @@ public class KeyListener implements Runnable {
             var bindingReader = new BindingReader(reader);
 
             var keyMap = new KeyMap<Keys>();
-            String upKey = KeyMap.key(terminal, Capability.key_up);
-            String downKey = KeyMap.key(terminal, Capability.key_down);
-            String rightKey = KeyMap.key(terminal, Capability.key_right);
-            String leftKey = KeyMap.key(terminal, Capability.key_left);
+            var upKey = KeyMap.key(terminal, Capability.key_up);
+            var downKey = KeyMap.key(terminal, Capability.key_down);
+            var rightKey = KeyMap.key(terminal, Capability.key_right);
+            var leftKey = KeyMap.key(terminal, Capability.key_left);
             if (upKey != null) keyMap.bind(Keys.UP, upKey);
             if (downKey != null) keyMap.bind(Keys.DOWN, downKey);
             if (rightKey != null) keyMap.bind(Keys.RIGHT, rightKey);
