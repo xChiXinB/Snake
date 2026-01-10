@@ -10,15 +10,14 @@ import andy.com.key_listener_thread.KeyListener;
 public class App {
     public static void main(String[] args) {
         // 初始化
-        var ticker = new FpsTicker(1);
+        var ticker = new FpsTicker(30);
 
         var keyListener = new KeyListener();
         var keyListenerThread = new Thread(keyListener);
         keyListenerThread.setDaemon(true);
         keyListenerThread.start();
 
-        for (var i = 0; i < 10; i++) {
-            IO.println("Tick " + i);
+        while (true) {
             var keys = keyListener.getKeys();
             IO.println("Keys: " + keys);
             ticker.tick();
