@@ -5,5 +5,14 @@ public enum Keys {
     UP,
     DOWN,
     LEFT,
-    RIGHT,
+    RIGHT;
+
+    public static char toChar(Keys key) {
+        return switch (key) {
+            case UP -> '↑';
+            case DOWN -> '↓';
+            case LEFT -> '←';
+            case RIGHT -> '→';
+        };
+    }
 }

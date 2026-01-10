@@ -2,6 +2,8 @@ package andy.com;
 
 import andy.com.tools.FpsTicker;
 import andy.com.key_listener_thread.KeyListener;
+import andy.com.display.DisplayManager;
+import andy.com.key_listener_thread.Keys;
 
 /**
  * Hello world!
@@ -12,16 +14,23 @@ public class App {
         App.launch();
 
         // 初始化
-        var ticker = new FpsTicker(30);
+        var ticker = new FpsTicker(24);
 
         var keyListener = new KeyListener();
         var keyListenerThread = new Thread(keyListener);
         keyListenerThread.setDaemon(true);
         keyListenerThread.start();
 
+        var displayManager = new DisplayManager(20, 10);
+
         while (true) {
             var keys = keyListener.getKeys();
-            IO.println("Keys: " + keys);
+
+            if (keys.isEmpty()) {
+                IO.print(displayManager.generateDisplayString('0'));
+            } else {
+                IO.print(displayManager.generateDisplayString(Keys.toChar(keys.get(0))));
+            }
             ticker.tick();
         }
     }
