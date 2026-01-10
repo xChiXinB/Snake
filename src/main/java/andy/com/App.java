@@ -27,9 +27,9 @@ public class App {
             var keys = keyListener.getKeys();
 
             if (keys.isEmpty()) {
-                IO.print(displayManager.generateDisplayString('0'));
+                IO.print(displayManager.getDisplayString('0'));
             } else {
-                IO.print(displayManager.generateDisplayString(Keys.toChar(keys.get(0))));
+                IO.print(displayManager.getDisplayString(Keys.toChar(keys.get(0))));
             }
             ticker.tick();
         }

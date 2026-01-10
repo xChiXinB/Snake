@@ -9,7 +9,7 @@ public class DisplayManager {
         this.height = height;
     }
 
-    public String generateDisplayString(char fillChar) {
+    public String getDisplayString(char fillChar) {
         var sb = new StringBuilder();
         sb.append("\n".repeat(100));
         for (int h = 0; h < height; h++) {
