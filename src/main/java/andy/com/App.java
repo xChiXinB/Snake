@@ -8,7 +8,7 @@ import andy.com.key_listener_thread.KeyListener;
  *
  */
 public class App {
-    public static void main(String[] args ) {
+    public static void main(String[] args) {
         // 初始化
         var ticker = new FpsTicker(1);
 
@@ -18,9 +18,9 @@ public class App {
         keyListenerThread.start();
 
         for (var i = 0; i < 10; i++) {
-            System.out.println("Tick " + i);
-            var keys = keyListener.getRawKeys();
-            System.out.println("Raw keys: " + keys);
+            IO.println("Tick " + i);
+            var keys = keyListener.getKeys();
+            IO.println("Keys: " + keys);
             ticker.tick();
         }
     }
