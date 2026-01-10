@@ -9,6 +9,8 @@ import andy.com.key_listener_thread.KeyListener;
  */
 public class App {
     public static void main(String[] args) {
+        App.launch();
+
         // 初始化
         var ticker = new FpsTicker(30);
 
@@ -21,6 +23,19 @@ public class App {
             var keys = keyListener.getKeys();
             IO.println("Keys: " + keys);
             ticker.tick();
+        }
+    }
+
+    private static void launch() {
+        try {
+            IO.print("The program will launch in 3...");
+            Thread.sleep(1000);
+            IO.print("2...");
+            Thread.sleep(1000);
+            IO.print("1...");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
