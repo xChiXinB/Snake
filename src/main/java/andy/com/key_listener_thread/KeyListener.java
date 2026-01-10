@@ -43,6 +43,7 @@ public class KeyListener implements Runnable {
             while (true) {
                 var key = bindingReader.readBinding(keyMap);
                 if (key == null) continue;
+                if (this.keys.contains(key)) continue;
                 this.keys.add(key);
             }
 
