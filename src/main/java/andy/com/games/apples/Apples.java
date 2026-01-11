@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.UUID;
 
 import andy.com.display.ContentDisplayer;
+import andy.com.games.snake.SnakePlayer;
 
 // 贪吃蛇果子类
 public class Apples implements ContentDisplayer {
@@ -27,7 +28,7 @@ public class Apples implements ContentDisplayer {
         this.tickIdentifier = UUID.randomUUID().toString();
     }
 
-    public void tickForward() {
+    public void tickForward(SnakePlayer snakePlayer) {
         this.tickIdentifier = UUID.randomUUID().toString();
 
         var random = new Random();
@@ -41,7 +42,7 @@ public class Apples implements ContentDisplayer {
                                                                        .count();
         this.applesSpawningSchedule.removeIf(s -> s == 0);
 
-        int remainedEmptySlots = (this.width * this.height) - this.apples.size();
+        int remainedEmptySlots = (this.width * this.height) - this.apples.size() - snakePlayer.getWholeBodyLength();
         expectedGeneratedApplesNumber = Math.min(expectedGeneratedApplesNumber, remainedEmptySlots);
 
         for (int i = 0; i < expectedGeneratedApplesNumber; i++) {
@@ -49,7 +50,7 @@ public class Apples implements ContentDisplayer {
             int appleY = random.nextInt(this.height);
             
             // 检查是否已有苹果在该位置
-            if (this.apples.stream().anyMatch((apple) -> apple[0] == appleX && apple[1] == appleY)) {
+            if (!this.checkSpaceAvailabilityAt(appleX, appleY, snakePlayer)) {
                 // 已有苹果在该位置，重新生成
                 i--;
                 continue;
@@ -67,6 +68,19 @@ public class Apples implements ContentDisplayer {
             }
         }
         return new AppleAvailability(false, -1, this.tickIdentifier);
+    }
+
+    /**
+     * 检查指定位置是否有可用空间生成苹果
+     * @param x
+     * @param y
+     * @return true - 有可用空间；false - 无可用空间
+     */
+    private boolean checkSpaceAvailabilityAt(int x, int y, SnakePlayer snakePlayer) {
+        var isAppleHere = this.apples.stream()
+                              .anyMatch((apple) -> apple[0] == x && apple[1] == y);
+        var isSnakeHere = snakePlayer.doesSnakeLieOn(x,  y);
+        return !(isAppleHere || isSnakeHere);
     }
 
     /**

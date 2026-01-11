@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import andy.com.key_listener_thread.Keys;
 import andy.com.display.ContentDisplayer;
+import andy.com.games.apples.Apples;
 
 // 贪吃蛇玩家类
 public class SnakePlayer implements ContentDisplayer {
@@ -27,9 +28,9 @@ public class SnakePlayer implements ContentDisplayer {
         this.tickNumberForGrowingTail = 1;
     }
 
-    public void setDirectionAndMove(ArrayList<Keys> keys) {
+    public void setDirectionAndMove(ArrayList<Keys> keys, Apples apples) {
         if (keys.isEmpty()) {
-            this.moveInCurrentDirection();
+            this.moveInCurrentDirection(apples);
             return;
         }
 
@@ -41,7 +42,7 @@ public class SnakePlayer implements ContentDisplayer {
             case Keys.RIGHT -> this.currentDirection == SnakeDirections.LEFT ? this.currentDirection : SnakeDirections.RIGHT;
         };
 
-        this.moveInCurrentDirection();
+        this.moveInCurrentDirection(apples);
     }
 
     /**
@@ -53,7 +54,18 @@ public class SnakePlayer implements ContentDisplayer {
         this.tickNumberForGrowingTail += tickNumber;
     }
 
-    public void moveInCurrentDirection() {
+    public boolean doesSnakeLieOn(int x, int y) {
+        var isOnHead = this.x == x && this.y == y;
+        var isOnBody = this.bodies.stream()
+                                 .anyMatch((body) -> body[0] == x && body[1] == y);
+        return isOnHead || isOnBody;
+    }
+
+    public int getWholeBodyLength() {
+        return this.bodies.size() + 1;
+    }
+
+    private void moveInCurrentDirection(Apples apples) {
         this.bodies.add(new int[] { this.x, this.y });
 
         switch (this.currentDirection) {
@@ -73,6 +85,13 @@ public class SnakePlayer implements ContentDisplayer {
         // 暂时用比较粗暴的方式
         if (isDead) {
             System.exit(0);
+        }
+
+        // 吃苹果
+        var appleAvailability = apples.checkAppleAvailabilityAt(this.x, this.y);
+        if (appleAvailability.isAvailable()) {
+            apples.removeAppleIfAvailableForThisTick(appleAvailability);
+            this.growTailForTickNumber(1);
         }
 
         // 尾巴增长
