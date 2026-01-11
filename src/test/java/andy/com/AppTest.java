@@ -38,7 +38,7 @@ public class AppTest {
             return result;
         });
 
-        var expectedDisplay = "\n".repeat(100) + ". . \n XX.\n.XX \n . .\n";
+        var expectedDisplay = "\n".repeat(100) + "..  ..  \n  XXXX..\n..XXXX  \n  ..  ..\n";
         displayMaster.apply();
         var gettedDisplay = displayMaster.toString();
 

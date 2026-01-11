@@ -93,7 +93,8 @@ public class DisplayMaster {
         stringBuilder.append("\n".repeat(100));
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
-                stringBuilder.append(this.displayArray.get(h).get(w));
+                // 为了视觉体验，将每个字符重复两遍以达到近似正方形的显示效果
+                stringBuilder.append(this.displayArray.get(h).get(w).repeat(2));
             }
             stringBuilder.append('\n');
         }
