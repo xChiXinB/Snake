@@ -111,7 +111,25 @@ public class Apples implements ContentDisplayer {
 
     @Override
     public ArrayList<ArrayList<String>> getDisplay() {
-        // TODO: 实现苹果的显示内容
-        return new ArrayList<ArrayList<String>>();
+        // 创建空白显示数组
+        ArrayList<ArrayList<String>> display = new ArrayList<>();
+        for (int h = 0; h < this.height; h++) {
+            ArrayList<String> row = new ArrayList<>();
+            for (int w = 0; w < this.width; w++) {
+                row.add(" ");
+            }
+            display.add(row);
+        }
+
+        // 在苹果位置填充红色空格
+        // ANSI 红色背景：\033[41m 空格 \033[0m（重置）
+        String appleChar = "\033[41m \033[0m";
+        for (int[] apple : this.apples) {
+            int x = apple[0];
+            int y = apple[1];
+            display.get(y).set(x, appleChar);
+        }
+
+        return display;
     }
 }

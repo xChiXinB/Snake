@@ -104,7 +104,31 @@ public class SnakePlayer implements ContentDisplayer {
 
     @Override
     public ArrayList<ArrayList<String>> getDisplay() {
-        // TODO: 实现贪吃蛇的显示内容
-        return new ArrayList<ArrayList<String>>();
+        // 创建空白显示数组
+        ArrayList<ArrayList<String>> display = new ArrayList<>();
+        for (int h = 0; h < this.height; h++) {
+            ArrayList<String> row = new ArrayList<>();
+            for (int w = 0; w < this.width; w++) {
+                row.add(" ");
+            }
+            display.add(row);
+        }
+
+        // ANSI 绿色背景：\033[42m 空格 \033[0m（重置）
+        String snakeBodyChar = "\033[42m \033[0m";
+        // 黄色背景用于蛇头，更容易区分
+        String snakeHeadChar = "\033[43m \033[0m";
+
+        // 绘制蛇身体
+        for (int[] body : this.bodies) {
+            int x = body[0];
+            int y = body[1];
+            display.get(y).set(x, snakeBodyChar);
+        }
+
+        // 绘制蛇头（覆盖在最后，确保显示）
+        display.get(this.y).set(this.x, snakeHeadChar);
+
+        return display;
     }
 }
