@@ -43,6 +43,7 @@ public class App {
             Thread.sleep(1000);
             IO.print("1...");
             Thread.sleep(1000);
+            IO.print("\033[2J\033[H"); // 清屏
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
