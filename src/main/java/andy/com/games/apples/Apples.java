@@ -3,6 +3,7 @@ package andy.com.games.apples;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.UUID;
 
 import andy.com.display.ContentDisplayer;
 
@@ -16,14 +17,19 @@ public class Apples implements ContentDisplayer {
     private int maxAppleNumber = 1;
     private int allApplesSpawnRate = 5; // ticks
 
+    private String tickIdentifier;
+
     public Apples(int width, int height) {
         this.width = width;
         this.height = height;
         this.apples = new ArrayList<int[]>();
         this.applesSpawningSchedule = new ArrayList<Integer>();
+        this.tickIdentifier = UUID.randomUUID().toString();
     }
 
     public void tickForward() {
+        this.tickIdentifier = UUID.randomUUID().toString();
+
         var random = new Random();
 
         this.updateAppleSpawningSchedule(random);
@@ -51,6 +57,28 @@ public class Apples implements ContentDisplayer {
 
             this.apples.add(new int[] { appleX, appleY });
         }
+    }
+
+    public AppleAvailability checkAppleAvailabilityAt(int x, int y) {
+        for (var i = 0; i < this.apples.size(); i++) {
+            var apple = this.apples.get(i);
+            if (apple[0] == x && apple[1] == y) {
+                return new AppleAvailability(true, i, this.tickIdentifier);
+            }
+        }
+        return new AppleAvailability(false, -1, this.tickIdentifier);
+    }
+
+    /**
+     * 移除可用的苹果
+     * 为了使调用生效，请确保传入的 AppleAvailability 的获取时机和调用该方法的时机在同一个 tickForward 调用后，下一个 tickForward 调用前
+     * @param appleAvailability
+     */
+    public void removeAppleIfAvailableForThisTick(AppleAvailability appleAvailability) {
+        if (!appleAvailability.isAvailable()) return;
+        if (!appleAvailability.tickIdentifier().equals(this.tickIdentifier)) return;
+        int appleIndex = appleAvailability.appleIndexAtThisTick();
+        this.apples.remove(appleIndex);
     }
 
     private void updateAppleSpawningSchedule(Random random) {
