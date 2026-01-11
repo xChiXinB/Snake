@@ -90,7 +90,7 @@ public class DisplayMaster {
     @Override
     public String toString() {
         var stringBuilder = new StringBuilder();
-        stringBuilder.append("\n".repeat(100));
+        stringBuilder.append("\033[2J\033[H");
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 // 为了视觉体验，将每个字符重复两遍以达到近似正方形的显示效果
