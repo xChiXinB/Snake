@@ -4,6 +4,7 @@ import andy.com.tools.FpsTicker;
 import andy.com.key_listener_thread.KeyListener;
 import andy.com.display.DisplayMaster;
 import andy.com.key_listener_thread.Keys;
+import andy.com.tools.Config;
 
 /**
  * Hello world!
@@ -21,7 +22,7 @@ public class App {
         keyListenerThread.setDaemon(true);
         keyListenerThread.start();
 
-        var displayManager = new DisplayMaster(20, 10);
+        var displayManager = new DisplayMaster(Config.DISPLAY_WIDTH, Config.DISPLAY_HEIGHT);
 
         while (true) {
             var keys = keyListener.getKeys();
