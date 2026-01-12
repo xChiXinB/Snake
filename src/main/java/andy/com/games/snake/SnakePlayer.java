@@ -84,6 +84,7 @@ public class SnakePlayer implements ContentDisplayer {
         };
         if (isDead) {
             App.isGameLoopRunning = false;
+            return;
         }
 
         // 吃苹果

@@ -38,6 +38,7 @@ public class App {
             var keys = keyListener.getKeys();
 
             snakePlayer.setDirectionAndMove(keys, apples);
+            if (!App.isGameLoopRunning) break;
             apples.tickForward(snakePlayer);
 
             displayMaster.setBackgroundDisplayer(background);
