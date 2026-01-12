@@ -57,7 +57,7 @@ public class App {
             Thread.sleep(1000);
             IO.print("1...");
             Thread.sleep(1000);
-            IO.print("\033[2J\033[H"); // 清屏
+            IO.print("\033[2J\033[H\033[?25l"); // 清屏，并隐藏光标
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
