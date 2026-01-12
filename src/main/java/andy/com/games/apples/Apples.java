@@ -16,7 +16,7 @@ public class Apples implements ContentDisplayer {
     private ArrayList<int[]> apples;
     private ArrayList<Integer> applesSpawningSchedule;
     private int maxAppleNumber = 1;
-    private int maximumApplesSpawnRate = 5; // ticks
+    private int maximumApplesSpawnTime = 5; // ticks
 
     private String tickIdentifier;
 
@@ -30,26 +30,30 @@ public class Apples implements ContentDisplayer {
 
     public void tickForward(SnakePlayer snakePlayer) {
         this.tickIdentifier = UUID.randomUUID().toString();
-
         var random = new Random();
 
-        this.updateAppleSpawningSchedule(random);
+        // 检查苹果数量
+        var doNeedMoreApple = (this.apples.size() + this.applesSpawningSchedule.size()) < this.maxAppleNumber;
+        if (doNeedMoreApple) {
+            var missingAppleNumber = this.maxAppleNumber - this.apples.size();
+            ArrayList<Integer> newApplesSpawningSchedule = random.ints(missingAppleNumber, 1, this.maximumApplesSpawnTime + 1)
+                                                                       .boxed()
+                                                                       .collect(Collectors.toCollection(ArrayList::new));
+            this.applesSpawningSchedule.addAll(newApplesSpawningSchedule);
+        }
 
         // 生成新苹果
         // NOTE - 该算法性能较低，但是考虑到苹果数量通常较少，影响不大
         int expectedGeneratedApplesNumber = (int) this.applesSpawningSchedule.stream()
                                                                        .filter((s) -> s == 0)
                                                                        .count();
-        this.applesSpawningSchedule.removeIf(s -> s == 0);
-
         int remainedEmptySlots = (this.width * this.height) - this.apples.size() - snakePlayer.getWholeBodyLength();
         expectedGeneratedApplesNumber = Math.min(expectedGeneratedApplesNumber, remainedEmptySlots);
 
         for (int i = 0; i < expectedGeneratedApplesNumber; i++) {
             int appleX = random.nextInt(this.width);
             int appleY = random.nextInt(this.height);
-            
-            // 检查是否已有苹果在该位置
+
             if (!this.checkSpaceAvailabilityAt(appleX, appleY, snakePlayer)) {
                 // 已有苹果在该位置，重新生成
                 i--;
@@ -58,6 +62,9 @@ public class Apples implements ContentDisplayer {
 
             this.apples.add(new int[] { appleX, appleY });
         }
+
+        this.applesSpawningSchedule.removeIf(s -> s == 0);
+        this.applesSpawningSchedule.replaceAll((s) -> s - 1);
     }
 
     public AppleAvailability checkAppleAvailabilityAt(int x, int y) {
@@ -93,20 +100,6 @@ public class Apples implements ContentDisplayer {
         if (!appleAvailability.tickIdentifier().equals(this.tickIdentifier)) return;
         int appleIndex = appleAvailability.appleIndexAtThisTick();
         this.apples.remove(appleIndex);
-    }
-
-    private void updateAppleSpawningSchedule(Random random) {
-        // 检查苹果数量
-        if (this.apples.size() < this.maxAppleNumber) {
-            var missingAppleNumber = this.maxAppleNumber - this.apples.size();
-            ArrayList<Integer> newApplesSpawningSchedule = random.ints(missingAppleNumber, 1, this.maximumApplesSpawnRate + 1)
-                                                                       .boxed()
-                                                                       .collect(Collectors.toCollection(ArrayList::new));
-            this.applesSpawningSchedule.addAll(newApplesSpawningSchedule);
-        }
-
-        // 更新 allApplesSpawningSchedule
-        this.applesSpawningSchedule.replaceAll((s) -> s - 1);
     }
 
     @Override

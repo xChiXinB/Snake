@@ -34,24 +34,17 @@ public class App {
 
         // 游戏主循环
         while (true) {
-            // 获取按键
             var keys = keyListener.getKeys();
 
-            // 更新苹果（生成新苹果）
+            snakePlayer.setDirectionAndMove(keys, apples);
             apples.tickForward(snakePlayer);
 
-            // 移动蛇（包含吃苹果逻辑）
-            snakePlayer.setDirectionAndMove(keys, apples);
-
-            // 添加显示内容
             displayMaster.setBackgroundDisplayer(background);
             displayMaster.addContentDisplayer(apples);
             displayMaster.addContentDisplayer(snakePlayer);
 
-            // 渲染并显示
             displayMaster.flip();
 
-            // 控制帧率
             ticker.tick();
         }
     }
