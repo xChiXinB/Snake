@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import andy.com.key_listener_thread.Keys;
 import andy.com.display.ContentDisplayer;
 import andy.com.games.apples.Apples;
+import andy.com.App;
 
 // 贪吃蛇玩家类
 public class SnakePlayer implements ContentDisplayer {
@@ -81,10 +82,8 @@ public class SnakePlayer implements ContentDisplayer {
         if (!isDead) {
             isDead = this.x < 0 || this.x > this.width - 1 || this.y < 0 || this.y > this.height - 1;
         };
-        // TODO: 处理死亡逻辑
-        // 暂时用比较粗暴的方式
         if (isDead) {
-            System.exit(0);
+            App.isGameLoopRunning = false;
         }
 
         // 吃苹果

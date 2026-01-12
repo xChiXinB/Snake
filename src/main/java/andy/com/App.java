@@ -12,6 +12,7 @@ import andy.com.games.background.Background;
  * 贪吃蛇游戏主程序
  */
 public class App {
+    public static boolean isGameLoopRunning = true;
     public static void main(String[] args) {
         App.launch();
 
@@ -33,7 +34,7 @@ public class App {
         var background = new Background(Config.DISPLAY_WIDTH, Config.DISPLAY_HEIGHT);
 
         // 游戏主循环
-        while (true) {
+        while (App.isGameLoopRunning) {
             var keys = keyListener.getKeys();
 
             snakePlayer.setDirectionAndMove(keys, apples);
@@ -47,6 +48,7 @@ public class App {
 
             ticker.tick();
         }
+        IO.println("Game Over!\033[?25h"); // 显示光标
     }
 
     private static void launch() {
