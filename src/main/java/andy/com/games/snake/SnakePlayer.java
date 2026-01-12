@@ -104,31 +104,29 @@ public class SnakePlayer implements ContentDisplayer {
 
     @Override
     public ArrayList<ArrayList<String>> getDisplay() {
-        // 创建空白显示数组
-        ArrayList<ArrayList<String>> display = new ArrayList<>();
+        var result = new ArrayList<ArrayList<String>>();
+
         for (int h = 0; h < this.height; h++) {
             ArrayList<String> row = new ArrayList<>();
             for (int w = 0; w < this.width; w++) {
                 row.add(" ");
             }
-            display.add(row);
+            result.add(row);
         }
 
-        // ANSI 绿色背景：\033[42m 空格 \033[0m（重置）
-        String snakeBodyChar = "\033[42m \033[0m";
-        // 黄色背景用于蛇头，更容易区分
-        String snakeHeadChar = "\033[43m \033[0m";
+        // 添加蛇头
+        var head = "\033[48;2;245;186;122m \033[0m";
+        result.get(this.y).set(this.x, head);
 
-        // 绘制蛇身体
-        for (int[] body : this.bodies) {
-            int x = body[0];
-            int y = body[1];
-            display.get(y).set(x, snakeBodyChar);
+        // 添加蛇身
+        var bodyDeeperColor = "\033[48;2;0;217;210m \033[0m";
+        var bodyLighterColor = "\033[48;2;164;244;242m \033[0m";
+        for (int i = 0; i < this.bodies.size(); i++) {
+            var body = this.bodies.get(i);
+            var bodyChar = (i % 2 == 0) ? bodyDeeperColor : bodyLighterColor;
+            result.get(body[1]).set(body[0], bodyChar);
         }
 
-        // 绘制蛇头（覆盖在最后，确保显示）
-        display.get(this.y).set(this.x, snakeHeadChar);
-
-        return display;
+        return result;
     }
 }
