@@ -16,7 +16,7 @@ public class Apples implements ContentDisplayer {
     private ArrayList<int[]> apples;
     private ArrayList<Integer> applesSpawningSchedule;
     private int maxAppleNumber = 1;
-    private int allApplesSpawnRate = 5; // ticks
+    private int maximumApplesSpawnRate = 5; // ticks
 
     private String tickIdentifier;
 
@@ -99,7 +99,7 @@ public class Apples implements ContentDisplayer {
         // 检查苹果数量
         if (this.apples.size() < this.maxAppleNumber) {
             var missingAppleNumber = this.maxAppleNumber - this.apples.size();
-            ArrayList<Integer> newApplesSpawningSchedule = random.ints(missingAppleNumber, 1, this.allApplesSpawnRate + 1)
+            ArrayList<Integer> newApplesSpawningSchedule = random.ints(missingAppleNumber, 1, this.maximumApplesSpawnRate + 1)
                                                                        .boxed()
                                                                        .collect(Collectors.toCollection(ArrayList::new));
             this.applesSpawningSchedule.addAll(newApplesSpawningSchedule);
