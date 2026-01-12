@@ -17,6 +17,7 @@ public class Apples implements ContentDisplayer {
     private ArrayList<Integer> applesSpawningSchedule;
     private int maxAppleNumber = 1;
     private int maximumApplesSpawnTime = 5; // ticks
+    private int lengthGrownPerApple = 1;
 
     private String tickIdentifier;
 
@@ -75,6 +76,10 @@ public class Apples implements ContentDisplayer {
             }
         }
         return new AppleAvailability(false, -1, this.tickIdentifier);
+    }
+
+    public int getLengthGrownPerApple() {
+        return this.lengthGrownPerApple;
     }
 
     /**

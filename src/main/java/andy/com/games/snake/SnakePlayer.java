@@ -91,7 +91,7 @@ public class SnakePlayer implements ContentDisplayer {
         var appleAvailability = apples.checkAppleAvailabilityAt(this.x, this.y);
         if (appleAvailability.isAvailable()) {
             apples.removeAppleIfAvailableForThisTick(appleAvailability);
-            this.growTailForTickNumber(1);
+            this.growTailForTickNumber(apples.getLengthGrownPerApple());
         }
 
         // 尾巴增长
