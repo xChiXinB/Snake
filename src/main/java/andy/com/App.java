@@ -49,12 +49,13 @@ public class App {
 
             ticker.tick();
         }
-        IO.println("Game Over!\033[?25h"); // 显示光标
+        IO.println("游戏结束！\033[?25h"); // 显示光标
     }
 
     private static void launch() {
         try {
-            IO.print("The program will launch in 3...");
+            IO.println("强烈建议使用等宽中文字体，例如等距更纱黑体，体验此游戏！");
+            IO.print("启动倒计时 3...");
             Thread.sleep(1000);
             IO.print("2...");
             Thread.sleep(1000);
