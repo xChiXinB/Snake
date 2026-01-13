@@ -7,12 +7,16 @@ import andy.com.tools.Config;
 import andy.com.games.snake.SnakePlayer;
 import andy.com.games.apples.Apples;
 import andy.com.games.background.Background;
+import andy.com.display.UserInterface;
 
 /**
  * 贪吃蛇游戏主程序
  */
 public class App {
     public static boolean isGameLoopRunning = true;
+    public static int ticksRemained = Config.GAME_LENGTH_TICKS;
+    public static String exitMessage;
+
     public static void main(String[] args) {
         App.launch();
 
@@ -25,6 +29,7 @@ public class App {
         keyListenerThread.start();
 
         var displayMaster = new DisplayMaster(Config.DISPLAY_WIDTH, Config.DISPLAY_HEIGHT);
+        var userInterface = new UserInterface();
 
         // 初始化贪吃蛇游戏对象
         int startX = 0;
@@ -46,10 +51,20 @@ public class App {
             displayMaster.addContentDisplayer(snakePlayer);
 
             displayMaster.flip();
+            userInterface.flip(snakePlayer);
 
+            App.ticksRemained--;
+            if (App.ticksRemained <= 0) {
+                App.isGameLoopRunning = false;
+                App.exitMessage = "时间到！";
+                // 额外渲染一帧，确保进度条为空
+                displayMaster.flip();
+                userInterface.flip(snakePlayer);
+                continue;
+            }
             ticker.tick();
         }
-        IO.println("游戏结束！\033[?25h"); // 显示光标
+        IO.println(App.exitMessage + "\033[?25h"); // 显示光标
     }
 
     private static void launch() {

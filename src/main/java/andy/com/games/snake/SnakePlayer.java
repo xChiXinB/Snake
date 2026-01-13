@@ -14,6 +14,8 @@ public class SnakePlayer implements ContentDisplayer {
     private ArrayList<int[]> bodies;
     private int tickNumberForGrowingTail;
     private SnakeDirections currentDirection;
+    private int score;
+    private int scoreForOneApple;
 
     private int width;
     private int height;
@@ -25,8 +27,10 @@ public class SnakePlayer implements ContentDisplayer {
         this.width = width;
         this.height = height;
         this.currentDirection = SnakeDirections.RIGHT;
+        this.score = 0;
         // 决定了开局尾巴长度
         this.tickNumberForGrowingTail = 1;
+        this.scoreForOneApple = 10;
     }
 
     public void setDirectionAndMove(ArrayList<Keys> keys, Apples apples) {
@@ -66,6 +70,10 @@ public class SnakePlayer implements ContentDisplayer {
         return this.bodies.size() + 1;
     }
 
+    public int getScore() {
+        return this.score;
+    }
+
     private void moveInCurrentDirection(Apples apples) {
         this.bodies.add(new int[] { this.x, this.y });
 
@@ -84,6 +92,7 @@ public class SnakePlayer implements ContentDisplayer {
         };
         if (isDead) {
             App.isGameLoopRunning = false;
+            App.exitMessage = "你死了！";
             return;
         }
 
@@ -92,6 +101,7 @@ public class SnakePlayer implements ContentDisplayer {
         if (appleAvailability.isAvailable()) {
             apples.removeAppleIfAvailableForThisTick(appleAvailability);
             this.growTailForTickNumber(apples.getLengthGrownPerApple());
+            this.score += this.scoreForOneApple;
         }
 
         // 尾巴增长
