@@ -2,6 +2,9 @@ package andy.com;
 
 import andy.com.tools.FpsTicker;
 import andy.com.key_listener_thread.KeyListener;
+
+import java.util.Arrays;
+
 import andy.com.display.DisplayMaster;
 import andy.com.tools.Config;
 import andy.com.games.snake.SnakePlayer;
@@ -18,7 +21,11 @@ public class App {
     public static String exitMessage;
 
     public static void main(String[] args) {
-        App.launch();
+        if (!Arrays.stream(args).anyMatch(a -> a.equals("--fast"))) {
+            App.launch();
+        } else {
+            IO.println("强烈建议使用等宽中文字体，例如等距更纱黑体，体验此游戏！\033[2J\033[H\033[?25l"); // 清屏，并隐藏光标
+        }
 
         // 初始化
         var ticker = new FpsTicker(Config.FPS);
