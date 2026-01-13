@@ -11,6 +11,7 @@ public class DisplayMaster {
     private BackgroundDisplayer backgroundDisplayer; // 背景器
     private ArrayList<ContentDisplayer> contentDisplayers; // 内容器列表
     private ArrayList<ArrayList<String>> displayArray; // 显示数组
+    private String displayString;
 
     private boolean isDisplayAltered;
 
@@ -19,6 +20,8 @@ public class DisplayMaster {
         this.height = height;
         this.backgroundDisplayer = null;
         this.contentDisplayers = new ArrayList<ContentDisplayer>();
+        this.displayArray = new ArrayList<ArrayList<String>>();
+        this.displayString = "";
         this.isDisplayAltered = false;
     }
 
@@ -47,9 +50,10 @@ public class DisplayMaster {
         this.isDisplayAltered = false;
         this.renderBackground();
         this.renderContents();
-        if (!this.isDisplayAltered) return;
-        var displayString = this.toString();
-        IO.print(displayString);
+        if (this.isDisplayAltered) {
+            this.displayString = this.toString();
+        };
+        IO.print(this.displayString);
         this.reset();
     }
 
