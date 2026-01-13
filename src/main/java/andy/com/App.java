@@ -17,7 +17,7 @@ public class App {
         App.launch();
 
         // 初始化
-        var ticker = new FpsTicker(10);
+        var ticker = new FpsTicker(Config.FPS);
 
         var keyListener = new KeyListener();
         var keyListenerThread = new Thread(keyListener);
