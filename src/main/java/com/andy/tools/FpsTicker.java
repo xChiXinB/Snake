@@ -1,4 +1,4 @@
-package andy.com.tools;
+package com.andy.tools;
 
 public class FpsTicker {
     private int fps;

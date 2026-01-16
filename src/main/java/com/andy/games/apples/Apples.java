@@ -1,12 +1,12 @@
-package andy.com.games.apples;
+package com.andy.games.apples;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.UUID;
 
-import andy.com.display.ContentDisplayer;
-import andy.com.games.snake.SnakePlayer;
+import com.andy.display.ContentDisplayer;
+import com.andy.games.snake.SnakePlayer;
 
 // 贪吃蛇果子类
 public class Apples implements ContentDisplayer {

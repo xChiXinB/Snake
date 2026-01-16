@@ -1,4 +1,4 @@
-package andy.com.games.snake;
+package com.andy.games.snake;
 
 public enum SnakeDirections {
     UP,

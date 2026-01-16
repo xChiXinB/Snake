@@ -1,6 +1,6 @@
-package andy.com.display;
+package com.andy.display;
 
-import andy.com.tools.Config;
+import com.andy.tools.Config;
 import java.util.ArrayList;
 
 public class DisplayMaster {

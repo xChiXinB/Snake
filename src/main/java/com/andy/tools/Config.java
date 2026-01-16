@@ -1,4 +1,4 @@
-package andy.com.tools;
+package com.andy.tools;
 
 public class Config {
     public static final int DISPLAY_WIDTH = 25;

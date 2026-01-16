@@ -1,11 +1,11 @@
-package andy.com.games.snake;
+package com.andy.games.snake;
 
 import java.util.ArrayList;
 
-import andy.com.key_listener_thread.Keys;
-import andy.com.display.ContentDisplayer;
-import andy.com.games.apples.Apples;
-import andy.com.App;
+import com.andy.key_listener_thread.Keys;
+import com.andy.display.ContentDisplayer;
+import com.andy.games.apples.Apples;
+import com.andy.App;
 
 // 贪吃蛇玩家类
 public class SnakePlayer implements ContentDisplayer {

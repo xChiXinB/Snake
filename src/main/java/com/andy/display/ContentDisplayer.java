@@ -1,4 +1,4 @@
-package andy.com.display;
+package com.andy.display;
 
 import java.util.ArrayList;
 

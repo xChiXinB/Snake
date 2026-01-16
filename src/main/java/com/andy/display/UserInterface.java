@@ -1,8 +1,8 @@
-package andy.com.display;
+package com.andy.display;
 
-import andy.com.games.snake.SnakePlayer;
-import andy.com.App;
-import andy.com.tools.Config;
+import com.andy.games.snake.SnakePlayer;
+import com.andy.App;
+import com.andy.tools.Config;
 
 public class UserInterface {
     // 文字闪烁相关变量

@@ -1,4 +1,4 @@
-package andy.com.key_listener_thread;
+package com.andy.key_listener_thread;
 
 import java.io.IOException;
 import java.util.ArrayList;

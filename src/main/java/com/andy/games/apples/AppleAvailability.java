@@ -1,4 +1,4 @@
-package andy.com.games.apples;
+package com.andy.games.apples;
 
 /**
  * 苹果可用性记录

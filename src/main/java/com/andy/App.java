@@ -1,16 +1,16 @@
-package andy.com;
+package com.andy;
 
-import andy.com.tools.FpsTicker;
-import andy.com.key_listener_thread.KeyListener;
+import com.andy.tools.FpsTicker;
+import com.andy.key_listener_thread.KeyListener;
 
 import java.util.Arrays;
 
-import andy.com.display.DisplayMaster;
-import andy.com.tools.Config;
-import andy.com.games.snake.SnakePlayer;
-import andy.com.games.apples.Apples;
-import andy.com.games.background.Background;
-import andy.com.display.UserInterface;
+import com.andy.display.DisplayMaster;
+import com.andy.tools.Config;
+import com.andy.games.snake.SnakePlayer;
+import com.andy.games.apples.Apples;
+import com.andy.games.background.Background;
+import com.andy.display.UserInterface;
 
 /**
  * 贪吃蛇游戏主程序

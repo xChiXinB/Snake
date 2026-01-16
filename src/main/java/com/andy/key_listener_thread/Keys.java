@@ -1,4 +1,4 @@
-package andy.com.key_listener_thread;
+package com.andy.key_listener_thread;
 
 public enum Keys {
     // 小方向键

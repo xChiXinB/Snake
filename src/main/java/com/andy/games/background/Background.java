@@ -1,8 +1,8 @@
-package andy.com.games.background;
+package com.andy.games.background;
 
 import java.util.ArrayList;
 
-import andy.com.display.BackgroundDisplayer;
+import com.andy.display.BackgroundDisplayer;
 
 public class Background implements BackgroundDisplayer {
     private final int width;
