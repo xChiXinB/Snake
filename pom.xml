@@ -35,7 +35,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.6.3</version>
         <configuration>
-          <mainClass>andy.com.App</mainClass>
+          <mainClass>com.andy.App</mainClass>
           <cleanupDaemonThreads>false</cleanupDaemonThreads>
         </configuration>
       </plugin>
